@@ -1,0 +1,33 @@
+<div class="container">
+  <form class="form" [formGroup]="sampleForm" (submit)="handleSubmit($event, sampleForm)">
+    <div class="formGroup">
+      <label for="sampleInput">Sample Input:</label>
+      <input type="text" formControlName="sampleInput" name="sampleInput" required />
+      <ng-container *ngFor="let val of validationMessage.sampleInput">
+        <span *ngIf="sampleForm.get('sampleInput')?.hasError(val.type) && (sampleForm.get('sampleInput')?.dirty || sampleForm.get('sampleInput')?.touched)">
+          {{ val.message }}
+        </span>
+      </ng-container>
+    </div>
+    <button type="submit">Submit</button>
+    <div>{{ formValid }}</div>
+  </form>
+
+  <div>
+    <input type="text" class="url-input" (keypress)="handleUrlKeyPress($event)" />
+    <span>Press enter to proceed request.</span>
+  </div>
+
+  <ng-container *ngIf="topWords.length > 0">
+    <table>
+      <tr>
+        <th>Word</th>
+        <th>Occurance</th>
+      </tr>
+      <tr *ngFor="let tp of topWords">
+        <td>{{ tp.word }}</td>
+        <td>{{ tp.occurance }}</td>
+      </tr>
+    </table>
+  </ng-container>
+</div>
